@@ -24,8 +24,8 @@ public class Main {
 //  Нужно написать программу, которая решит эту задачу, и вывести в консоль результат в формате:
 //  «Минимальная сумма трат за день составила … рублей. Максимальная сумма трат за день составила … рублей».
         System.out.println("Задача 2");
-        int maxAmount = 99_999; // минимальное число - 1, с которым будут сравниваться все элементы для выявления максимальной суммы
-        int minAmount = 200_001; // максимальное число + 1, с которым будут сравниваться все элементы для выявления минимальной суммы
+        int maxAmount = arr[0];
+        int minAmount = arr[0];
         for (int i : arr) {
             if (i > maxAmount) {
                 maxAmount = i;
@@ -37,12 +37,20 @@ public class Main {
         System.out.println("Минимальная сумма трат за день составила " + minAmount +
                             " руб.\nМаксимальная сумма трат за день составила " + maxAmount + " руб.\n");
 
+
+
 //  Задача 3
 //  Нужно написать программу, которая посчитает среднее значение трат за месяц (то есть сумму всех трат за месяц
 //  поделить на количество дней), и вывести в консоль результат в формате: «Средняя сумма трат за месяц составила … рублей».
+//  Нужно сгенерировать массив, подать его в наш метод, а внутри метода подсчитать сумму элементов и вычислить среднее значение,
+//  которое нужно вернуть из метода в виде результата. Метод нужно не просто написать, но еще и декомпозировать.
+//  То есть для работы этого метода нужно будет создать еще методы (1 или более), которые его будут обслуживать и вычислять
+//  промежуточные результаты. Среднее значение нужно вычислять в дробном виде, так как результат должен быть точным.
         System.out.println("Задача 3");
-        float averageAmount = (float) totalAmountPerMonth / arr.length; // поскольку среднее значение может быть дробным числом
-        System.out.printf("Средняя сумма трат за месяц составила %.2f руб.", averageAmount);
+        int[] array = generateRandomArray();
+        int totalAmount = calculateTotalAmountPerMonth(array);
+        float averageAmountPerMonth = calculateAverageAmountPerMonth(array, totalAmount);
+        printAverageAmount(averageAmountPerMonth);
         System.out.println("\n");
 
 //  Задача 4
@@ -65,5 +73,22 @@ public class Main {
             arr[i] = random.nextInt(100_000) + 100_000;
         }
         return arr;
+    }
+
+    public static int calculateTotalAmountPerMonth(int[] arr) {
+        generateRandomArray();
+        int totalAmountPerMonth = 0;
+        for (int i : arr) {
+            totalAmountPerMonth += i;
+        }
+        return totalAmountPerMonth;
+    }
+
+    public static float calculateAverageAmountPerMonth(int[] arr, int totalAmountPerMonth) {
+        return (float) totalAmountPerMonth / arr.length; // float - поскольку среднее значение может быть дробным числом
+    }
+
+    public static void printAverageAmount(float averageAmount) {
+        System.out.printf("Средняя сумма трат за месяц составила %.2f руб.", averageAmount);
     }
 }
